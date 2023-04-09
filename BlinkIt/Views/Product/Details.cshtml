@@ -1,0 +1,28 @@
+﻿@model Product
+
+<div class="col-md-4">
+    <div class="card shadow-sm">
+        <img class="card-img-top" src="@Model.ImageUrl" width="100%" height="225" alt="Card image cap" />
+        <div class="card-body">
+            <p class="card-text">@Model.Name</p>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text">@Model.SubCategory.Name</p>
+            <a class="card-text">@Model.Category.Name</a>
+            <p class="card-text">@Model.Price</p>
+            <p class="card-text">@Model.AppUser.UserName</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a type="button" class="btn btn-sn btn-outline-danger" asp-action="Index" >Back</a>
+                    }
+                    else
+                    {
+                        <a type="button" class="btn btn-sn btn-outline-danger" asp-action="Index" >Back</a>
+                    }
+                    <a type="button" class="btn btn-sn btn-outline-success" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">AddToCart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

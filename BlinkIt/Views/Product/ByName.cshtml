@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<div class="album py-4 bg-dark col-md-3">*@
+<div class="col-md-3">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+    {
+        <a type="button" asp-action="Create">Create</a>
+    }
+</div>
+<div class="album py-4 bg-dark">
+
+    <div class="container">
+
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <img class="card-img-top" src="@product.ImageUrl" width="100%" height="225" alt="Card image cap" />
+                        <div class="card-body">
+                            <p class="card-text">@product.Name</p>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text">@product.SubCategory.Name</p>
+                            <p class="card-text">@product.Category.Name</p>
+                            <p class="card-text">@product.Price</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@product.Id">View</a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                        <a type="button" class="btn btn-sn btn-outline-danger" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                                    }
+
+                                    <a type="button" class="btn btn-sn btn-outline-success" asp-action="AddToCart" asp-controller="ShoppingCart" asp-route-id="@product.Id">AddtoCart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

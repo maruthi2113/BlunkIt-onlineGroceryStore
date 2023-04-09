@@ -1,0 +1,59 @@
+﻿@using BlinkIt.Models.Order.PlacedOrder
+@model IEnumerable<Order>
+<div class="container-fluid my-5  d-flex  justify-content-center">
+    <div class="card card-1">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between  ">
+                <div class="col my-auto"> <h4 class="mb-0">Orders history,<span class="change-color"></span> !</h4> </div>
+                <div class="col-auto text-center  my-auto pl-0 pt-sm-4"> <img class="img-fluid my-auto align-items-center mb-0 pt-3" src="" width="115" height="115"> <p class="mb-4 pt-0 Glasses"></p></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between mb-3">
+                <div class="col-auto"> <h6 class="color-1 mb-0 change-color">Receipt</h6> </div>
+                <div class="col-auto  "> <small>Receipt Voucher : 1KAU9-84UIL</small> </div>
+            </div>
+            @foreach(var order in Model)
+            {
+                
+                <div class="row">
+                    <div class="col">
+                    <div class="card card-2">
+                        <div class="card-body">
+                            <div class="media">
+                                    <div class="sq align-self-center "> <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="https://img.freepik.com/free-vector/seasonal-sale-discounts-presents-purchase-visiting-boutiques-luxury-shopping-price-reduction-promotional-coupons-special-holiday-offers-vector-isolated-concept-metaphor-illustration_335657-2766.jpg?w=2000" width="135" height="135" /> </div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row  my-auto flex-column flex-md-row">
+                                        <div class="col my-auto"> <h6 class="mb-0"> @order.Id</h6>  </div>
+                                        <div class="col-auto my-auto"> <small> </small></div>
+                                        <div class="col my-auto"> <small></small></div>
+@*                                        <div class="col my-auto"> <small>Qty : @order.OrderItems</small></div>
+*@                                        <div class="col my-auto">
+                                        <h6 class="mb-0">₹ @order.Total</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-3 ">
+                            <div class="row">
+                                <div class="col-md-3 mb-3"> <small> Track Order <span><i class=" ml-2 fa fa-refresh" aria-hidden="true"></i></span></small> </div>
+                                <div class="col mt-auto">
+                                    <div class="progress my-auto"> <div class="progress-bar progress-bar  rounded" style="width: 62%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div> </div>
+                                    <div class="media row justify-content-between ">
+                                        <div class="col-auto text-right"><span> <small class="text-right mr-sm-2"></small> <i class="fa fa-circle active"></i> </span></div>
+                                        <div class="flex-col"> <span> <small class="text-right mr-sm-2">Out for delivary</small><i class="fa fa-circle active"></i></span></div>
+                                        <div class="col-auto flex-col-auto"><small class="text-right mr-sm-2">Delivered</small><span> <i class="fa fa-circle"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <a class="btn btn-primary" asp-action="PlaceditemsbyOrder" asp-route-id="@order.Id">View</a>
+                <br/>
+            }
+        </div>
+        
+        </div>
+    </div>

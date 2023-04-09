@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BlinkIt</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BlinkIt.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">BlinkIt</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                   @* <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>*@
+                    @if (!User.Identity.IsAuthenticated && !User.IsInRole("Seller"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">30 minitues Delivery</a>
+                        </li>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
+                    {
+                        <li class="nav-item">
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="Product" h>Product</a>
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="Category" h>Category</a>
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="SubCategory" h>SubCategory</a>
+                        </li>
+                    }
+
+                    <form class="d-flex" asp-action="ByName">
+
+                    <input class="form-control me-sm-2" type="search" placeholder="Search by Name" value="@ViewData["byname"]" name="s">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form></ul>
+                
+                <ul><li><a class="nav-link text-dark" asp-controller="ShoppingCart" asp-action="CartView">Shoppintcart</a></li></ul>
+                @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="nav-item">
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </div>
+                            <div class="nav-item">
+                                <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </div>
+                        }
+                else
+                {
+                    <div class="nav-item">
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Profile" >Profile</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    </div>
+                }
+               
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - BlinkIt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

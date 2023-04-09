@@ -1,0 +1,33 @@
+﻿@model SubCategory
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <img class="card-img-top" src="@Model.ImageUrl" width="100%" height="225" alt="Card image cap" />
+                    <div class="card-body">
+                        <p class="card-text">@Model.Name</p>
+                        <p class="card-text">@Model.Name</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Detail" asp-route-id="@Model.Id">View</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-secondary">Delete</button>
+    <a class="btn btn-secondary" asp-action="Index">Back</a>
+</form>

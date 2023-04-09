@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SubCategory>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<div class="album py-4 bg-dark col-md-3">*@
+@*<div class="input-group">
+    <div class="form-outline">
+        <input type="search" id="form1" class="form-control" />
+        <label class="form-label" for="form1">Search</label>
+    </div>
+    <button type="button" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+    </button>
+</div>*@
+<div class="col-md-3">
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Seller")))
+    {
+        <a type="button" asp-action="Create">Create</a>
+    }
+</div>
+<form class="d-flex" asp-action="ByName">
+
+    <input class="form-control me-sm-2" type="search" placeholder="Search by Name" value="@ViewData["byname"]" name="s">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+<div class="album py-4 bg-dark">
+
+    <div class="container">
+
+        <div class="row">
+            @foreach (var category in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <img class="card-img-top" src="@category.ImageUrl" width="100%" height="225" alt="Card image cap" />
+                        <div class="card-body">
+                            <p class="card-text">@category.Name</p>
+                            <p class="card-text">@category.Description</p>
+                            <p class="card-text">@category.Category</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@category.Id">View</a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                    {
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                                        <a type="button" class="btn btn-sn btn-outline-danger" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                                    }
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@using BlinkIt.Models.ViewModels.homeViewModels
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+
+    <div class="album py-4 bg-white">
+
+        <div class="container">
+
+            <div class="row">
+      @foreach(var item in @Model.Categories)
+    {
+            <div class="col-md-2">
+            <a  asp-controller ="Product" asp-action="GetProductByCategory" asp-route-id="@item.Id">
+            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                <img src="@item.ImageUrl"
+                 class="w-100" alt="Blue Jeans Jacket" width="100" height="150" />
+                                <a asp-controller="Product" asp-action="GetProductByCategory" asp-route-id="@item.Id">
+                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                  </a>
+                <p>@item.Name</p>
+            </div>
+            </a>
+            </div>
+    }
+        
+        </div>
+        </div>
+    </div>
+}
+
+<div class="album py-4 bg-white">
+
+    <div class="container">
+
+        <div class="row">
+            @foreach (var product in @Model.Products)
+            {
+                <div class="col-md-2">
+                    <div class="card shadow-sm">
+                        <img class="card-img-top" src="@product.ImageUrl" width="100%" height="225" alt="Card image cap" />
+                        <div class="card-body">
+                            <p class="card-text">@product.Name</p>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text">@product.SubCategory.Name</p>
+                            <p class="card-text">@product.Category.Name</p>
+                            <p class="card-text">@product.Price</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">View</a>
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                        <a type="button" class="btn btn-sn btn-outline-danger" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                                    }
+                                    @if (!User.IsInRole("Admin") && !User.IsInRole("Seller"))
+                                    {
+                                        <a type="button" class="btn btn-success" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@product.Id">AddtoCart</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
